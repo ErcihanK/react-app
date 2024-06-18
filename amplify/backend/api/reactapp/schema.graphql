@@ -1,0 +1,25 @@
+type User @model
+  @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  username: String!
+  email: String!
+  foodEntries: [FoodEntry] @hasMany(indexName: "byUser", fields: ["id"])
+  weightEntries: [WeightEntry] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type FoodEntry @model
+  @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  userID: ID! @index(name: "byUser", sortKeyFields: ["date"])
+  food: String!
+  calories: Int!
+  date: AWSDateTime!
+}
+
+type WeightEntry @model
+  @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  userID: ID! @index(name: "byUser", sortKeyFields: ["date"])
+  weight: Float!
+  date: AWSDateTime!
+}
