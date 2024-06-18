@@ -1,55 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { generateClient } from 'aws-amplify/api';
-import { Amplify } from 'aws-amplify';
-import { listFoodEntries, listWeightEntries } from '../graphql/queries';
-
-const client = generateClient();
+import React, { useState } from 'react';
+import FoodEntryForm from './FoodEntryForm';
+import CalorieTracker from './CalorieTracker';
+import FoodHistory from './FoodHistory';
+import { signOut } from 'aws-amplify/auth';
 
 const Dashboard = () => {
   const [foodEntries, setFoodEntries] = useState([]);
-  const [weightEntries, setWeightEntries] = useState([]);
+  const [totalCalories, setTotalCalories] = useState(0);
 
-  useEffect(() => {
-    const fetchEntries = async () => {
-      const user = await Amplify.Auth.currentAuthenticatedUser();
-      const userId = user.username;
+  const addFoodEntry = (entry) => {
+    setFoodEntries([...foodEntries, entry]);
+    setTotalCalories(totalCalories + entry.calories);
+  };
 
-      const foodData = await client.graphql({
-        query: listFoodEntries,
-        variables: { filter: { userId: { eq: userId } } },
-      });
-
-      const weightData = await client.graphql({
-        query: listWeightEntries,
-        variables: { filter: { userId: { eq: userId } } },
-      });
-
-      setFoodEntries(foodData.data.listFoodEntries.items);
-      setWeightEntries(weightData.data.listWeightEntries.items);
-    };
-
-    fetchEntries();
-  }, []);   
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.log('Error signing out: ', error);
+    }
+  };
 
   return (
     <div>
-      <h1>Dashboard</h1>
-      <h2>Food Entries</h2>
-      <ul>
-        {foodEntries.map((entry) => (
-          <li key={entry.id}>
-            {entry.food} - {entry.calories} calories on {new Date(entry.date).toLocaleDateString()}
-          </li>
-        ))}
-      </ul>
-      <h2>Weight Entries</h2>
-      <ul>
-        {weightEntries.map((entry) => (
-          <li key={entry.id}>
-            {entry.weight} kg on {new Date(entry.date).toLocaleDateString()}
-          </li>
-        ))}
-      </ul>
+      <h1>Calorie Tracker Dashboard</h1>
+      <FoodEntryForm addFoodEntry={addFoodEntry} />
+      <CalorieTracker totalCalories={totalCalories} />
+      <FoodHistory foodEntries={foodEntries} />
+      <button onClick={handleSignOut}>Sign Out</button>
     </div>
   );
 };
