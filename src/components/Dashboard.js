@@ -3,6 +3,7 @@ import FoodEntryForm from './FoodEntryForm';
 import CalorieTracker from './CalorieTracker';
 import FoodHistory from './FoodHistory';
 import { signOut } from 'aws-amplify/auth';
+import './Dashboard.css'; // Import the CSS file
 
 const Dashboard = () => {
   const [foodEntries, setFoodEntries] = useState([]);
@@ -22,12 +23,18 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h1>Calorie Tracker Dashboard</h1>
-      <FoodEntryForm addFoodEntry={addFoodEntry} />
-      <CalorieTracker totalCalories={totalCalories} />
-      <FoodHistory foodEntries={foodEntries} />
-      <button onClick={handleSignOut}>Sign Out</button>
+      <div className="form-container">
+        <FoodEntryForm addFoodEntry={addFoodEntry} />
+      </div>
+      <div className="calorie-tracker">
+        <CalorieTracker totalCalories={totalCalories} />
+      </div>
+      <div className="food-history">
+        <FoodHistory foodEntries={foodEntries} />
+      </div>
+      <button className="sign-out-button" onClick={handleSignOut}>Sign Out</button>
     </div>
   );
 };

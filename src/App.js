@@ -3,6 +3,7 @@ import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import Dashboard from './components/Dashboard';
+import '@aws-amplify/ui-react/styles.css';
 import FoodEntryForm from './components/FoodEntryForm';
 import FoodHistory from './components/FoodHistory';
 import CalorieTracker from './components/CalorieTracker';
