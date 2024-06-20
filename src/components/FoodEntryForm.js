@@ -1,34 +1,60 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { TextField, Button, Paper, Typography, Box } from '@mui/material';
 
 const FoodEntryForm = ({ addFoodEntry }) => {
-  const [foodItem, setFoodItem] = useState('');
-  const [calories, setCalories] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addFoodEntry({ foodItem, calories: Number(calories) });
-    setFoodItem('');
-    setCalories('');
-  };
+  const formik = useFormik({
+    initialValues: {
+      foodItem: '',
+      calories: '',
+    },
+    validationSchema: Yup.object({
+      foodItem: Yup.string().required('Required'),
+      calories: Yup.number().required('Required').positive('Must be positive'),
+    }),
+    onSubmit: (values, { resetForm }) => {
+      addFoodEntry(values);
+      resetForm();
+    },
+  });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Food Item"
-        value={foodItem}
-        onChange={(e) => setFoodItem(e.target.value)}
-        required
-      />
-      <input
-        type="number"
-        placeholder="Calories"
-        value={calories}
-        onChange={(e) => setCalories(e.target.value)}
-        required
-      />
-      <button type="submit">Add</button>
-    </form>
+    <Paper elevation={3} style={{ padding: '16px' }}>
+      <Typography variant="h6" gutterBottom>
+        Add Food Entry
+      </Typography>
+      <form onSubmit={formik.handleSubmit}>
+        <Box mb={2}>
+          <TextField
+            fullWidth
+            id="foodItem"
+            name="foodItem"
+            label="Food Item"
+            value={formik.values.foodItem}
+            onChange={formik.handleChange}
+            error={formik.touched.foodItem && Boolean(formik.errors.foodItem)}
+            helperText={formik.touched.foodItem && formik.errors.foodItem}
+          />
+        </Box>
+        <Box mb={2}>
+          <TextField
+            fullWidth
+            id="calories"
+            name="calories"
+            label="Calories"
+            type="number"
+            value={formik.values.calories}
+            onChange={formik.handleChange}
+            error={formik.touched.calories && Boolean(formik.errors.calories)}
+            helperText={formik.touched.calories && formik.errors.calories}
+          />
+        </Box>
+        <Button color="primary" variant="contained" fullWidth type="submit">
+          Add Entry
+        </Button>
+      </form>
+    </Paper>
   );
 };
 

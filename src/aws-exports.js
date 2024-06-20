@@ -3,15 +3,28 @@
 
 const awsmobile = {
     "aws_project_region": "us-east-1",
-    "aws_appsync_graphqlEndpoint": "https://mbvtpkbdnrcdxpmemrvumfqpre.appsync-api.us-east-1.amazonaws.com/graphql",
+    "aws_appsync_graphqlEndpoint": "https://rcfjiry3qfempmvhrhdtlinaoe.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_appsync_region": "us-east-1",
     "aws_appsync_authenticationType": "API_KEY",
-    "aws_appsync_apiKey": "da2-jz4lxzobjjcq7mslkt26kej4au",
-    "aws_cognito_identity_pool_id": "us-east-1:90731385-766c-4462-a2bb-a997d6cf9945",
+    "aws_appsync_apiKey": "da2-o3s5327r5fcsboxex3palsojqu",
+    "aws_cognito_identity_pool_id": "us-east-1:eb48bc2e-afd4-4b85-b79a-90ca4e6e5278",
     "aws_cognito_region": "us-east-1",
-    "aws_user_pools_id": "us-east-1_YgLqEEryd",
-    "aws_user_pools_web_client_id": "517k3m23cprl5f79iof3h0fo02",
-    "oauth": {},
+    "aws_user_pools_id": "us-east-1_pZOzOWWcj",
+    "aws_user_pools_web_client_id": "5a75nvshve1o0h4593bc99hga7",
+    "oauth": {
+        "domain": "reactapp5a48ee34-5a48ee34-localdata.auth.us-east-1.amazoncognito.com",
+        "scope": [
+            "phone",
+            "email",
+            "openid",
+            "profile",
+            "aws.cognito.signin.user.admin"
+        ],
+        "redirectSignIn": "http://localhost:3000/",
+        "redirectSignOut": "http://localhost:3000/",
+        "responseType": "code"
+    },
+    "federationTarget": "COGNITO_USER_POOLS",
     "aws_cognito_username_attributes": [],
     "aws_cognito_social_providers": [],
     "aws_cognito_signup_attributes": [

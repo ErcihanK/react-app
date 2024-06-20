@@ -1,0 +1,26 @@
+.hero-container {
+  background-image: url('./images/note.jpg'); /* Update this path if necessary */
+  background-size: cover;
+  background-position: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.hero-title {
+  font-weight: bold;
+}
+
+.hero-description {
+  margin: 20px 0;
+}
+
+.hero-button {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}

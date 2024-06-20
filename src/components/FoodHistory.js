@@ -1,17 +1,20 @@
 import React from 'react';
+import { Paper, Typography, List, ListItem, ListItemText } from '@mui/material';
 
 const FoodHistory = ({ foodEntries }) => {
   return (
-    <div>
-      <h2>Food History</h2>
-      <ul>
+    <Paper elevation={3} style={{ padding: '16px' }}>
+      <Typography variant="h6" gutterBottom>
+        Food History
+      </Typography>
+      <List>
         {foodEntries.map((entry, index) => (
-          <li key={index}>
-            {entry.foodItem} - {entry.calories} calories
-          </li>
+          <ListItem key={index}>
+            <ListItemText primary={`${entry.foodItem} - ${entry.calories} calories`} />
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Paper>
   );
 };
 
