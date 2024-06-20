@@ -1,33 +1,50 @@
 .dashboard-container {
-  max-width: 800px;
-  margin: 20px auto;
   padding: 20px;
-  background-color: #fff;
+}
+
+.app-bar {
+  background-color: #0044cc;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.title {
+  flex-grow: 1;
+}
+
+.dashboard-card {
+  background-color: #f4f4f4;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.sign-out-button {
-  margin-top: 20px;
-  width: 100%;
+.dashboard-card .MuiCardContent-root {
+  padding: 20px;
 }
 
-.users-list ul {
+ul {
   list-style-type: none;
   padding: 0;
 }
 
-.users-list li {
-  background-color: #f9f9f9;
+li {
+  background-color: #eaeaea;
   margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+button {
+  margin-top: 10px;
+}
+
+.section {
+  text-align: center;
+}
+
+.section-content {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  color: #fff;
 }

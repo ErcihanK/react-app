@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Typography } from '@mui/material';
+import { Paper, Typography, Box } from '@mui/material';
 
 const CalorieTracker = ({ totalCalories }) => {
   return (
@@ -7,7 +7,9 @@ const CalorieTracker = ({ totalCalories }) => {
       <Typography variant="h6" gutterBottom>
         Total Calories
       </Typography>
-      <Typography variant="h4">{totalCalories}</Typography>
+      <Box display="flex" justifyContent="center" alignItems="center" style={{ height: '100px', fontSize: '2rem' }}>
+        {totalCalories}
+      </Box>
     </Paper>
   );
 };

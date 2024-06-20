@@ -1,9 +1,10 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, Grid } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, Grid, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import MenuIcon from '@mui/icons-material/Menu';
 import Carousel from 'react-material-ui-carousel';
 import './LandingPage.css';
 import Logo from './images/guard.png';
@@ -11,7 +12,7 @@ import Slide1 from './images/note.jpg';
 import Slide2 from './images/Slide2.png';
 
 const slides = [
-  { image: Slide1, title: "Fitness Tracker", description: "Welcome to FitGuard, your ultimate companion for tracking your fitness journey. Stay on top of your calorie intake and achieve your health goals with ease." },
+  { image: Slide1, title: "FitGuard", description: "Welcome to FitGuard, your ultimate companion for tracking your fitness journey. Stay on top of your calorie intake and achieve your health goals with ease." },
   { image: Slide2, title: "Track Your Progress", description: "Monitor your daily progress and stay motivated with our comprehensive tracking tools." },
 ];
 
@@ -23,7 +24,7 @@ const LandingPage = () => {
           <Box display="flex" alignItems="center" flexGrow={1}>
             <img src={Logo} alt="Logo" className="logo" />
             <Typography variant="h6" className="title">
-              Fitness Tracker
+              FitGuard
             </Typography>
           </Box>
           <Button color="inherit" component={Link} to="/signin" className="sign-in-button">
@@ -31,6 +32,17 @@ const LandingPage = () => {
           </Button>
         </Toolbar>
       </AppBar>
+      
+      <Box className="navigation-bar">
+        <Button component={Link} to="/" className="nav-button">HOME</Button>
+        <Button component={Link} to="/shop" className="nav-button">SHOP</Button>
+        <Button component={Link} to="/about" className="nav-button">ABOUT</Button>
+        <Button component={Link} to="/contact" className="nav-button">CONTACT</Button>
+        <Button component={Link} to="/faq" className="nav-button">FAQ</Button>
+        <IconButton color="inherit">
+          <MenuIcon />
+        </IconButton>
+      </Box>
 
       <Carousel interval={8000}>
         {slides.map((slide, index) => (
