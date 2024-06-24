@@ -1,0 +1,17 @@
+.profile-section {
+    padding: 16px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  
+  .profile-name {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  

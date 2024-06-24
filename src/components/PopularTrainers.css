@@ -1,0 +1,18 @@
+.popular-trainers {
+    padding: 16px;
+    margin-top: 20px;
+  }
+  
+  .trainer-card {
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .trainer-image {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+  }
+  

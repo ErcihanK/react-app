@@ -1,50 +1,29 @@
 .dashboard-container {
-  padding: 20px;
+  padding: 10px; /* Reduced padding */
 }
 
 .app-bar {
   background-color: #0044cc;
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Reduced margin */
 }
 
 .title {
   flex-grow: 1;
 }
 
-.dashboard-card {
-  background-color: #f4f4f4;
-  border-radius: 10px;
+.stat-card {
+  background-color: #fff;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-card .MuiCardContent-root {
-  padding: 20px;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  background-color: #eaeaea;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-button {
-  margin-top: 10px;
-}
-
-.section {
   text-align: center;
+  padding: 10px; /* Reduced padding */
 }
 
-.section-content {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 10px;
-  color: #fff;
+.dashboard-card {
+  background-color: #fff;
+  border-radius: 8px; /* Reduced border-radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px; /* Reduced padding */
+  margin-bottom: 10px; /* Reduced margin */
 }

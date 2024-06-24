@@ -81,7 +81,7 @@ const Dashboard = () => {
           </Toolbar>
         </AppBar>
 
-        <Box mb={4}>
+        <Box mb={2}>
           <Typography variant="h4" gutterBottom>
             Welcome to Your Dashboard
           </Typography>

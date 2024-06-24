@@ -1,0 +1,12 @@
+.recommended-food {
+    padding: 16px;
+    margin-top: 20px;
+  }
+  
+  .food-card {
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  

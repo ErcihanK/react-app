@@ -2,8 +2,11 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Paper, Typography, Box } from '@mui/material';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 const FoodEntryForm = ({ addFoodEntry }) => {
+  const { user } = useAuthenticator((context) => [context.user]);
+
   const formik = useFormik({
     initialValues: {
       foodItem: '',
@@ -13,9 +16,28 @@ const FoodEntryForm = ({ addFoodEntry }) => {
       foodItem: Yup.string().required('Required'),
       calories: Yup.number().required('Required').positive('Must be positive'),
     }),
-    onSubmit: (values, { resetForm }) => {
-      addFoodEntry(values);
-      resetForm();
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const response = await fetch('https://nodejs-czjr-production.up.railway.app/food-entry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userName: user?.username || 'Anonymous', // Use the authenticated user's username or 'Anonymous' if not available
+            foodItem: values.foodItem,
+            calories: values.calories,
+          }),
+        });
+        if (response.ok) {
+          addFoodEntry(values);
+          resetForm();
+        } else {
+          console.error('Failed to submit food entry');
+        }
+      } catch (error) {
+        console.error('Error submitting food entry:', error);
+      }
     },
   });
 
