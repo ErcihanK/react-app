@@ -1,48 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button, Paper, Typography, Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Collapse } from '@mui/material';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { TextField, Button, Paper, Typography, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { signOut } from 'aws-amplify/auth';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import MenuIcon from '@mui/icons-material/Menu';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import SettingsIcon from '@mui/icons-material/Settings';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
-import ForumIcon from '@mui/icons-material/Forum';
-import TimelineIcon from '@mui/icons-material/Timeline';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
 import FoodHistory from './FoodHistory';
-
-const services = [
-  { name: 'Personalized Diet Plans', icon: <RestaurantMenuIcon />, link: '/dashboard/diet-plans' },
-  { name: 'Fitness Programs', icon: <FitnessCenterIcon />, link: '/dashboard/fitness-programs' },
-  { name: 'Community Forum', icon: <ForumIcon />, link: '/dashboard/community' },
-  { name: 'Progress Tracker', icon: <TimelineIcon />, link: '/dashboard/progress' },
-  { name: 'Calorie Tracker', icon: <FastfoodIcon />, link: '/dashboard/food-entry' }
-];
+import Navbar from './Navbar';
+import './FoodEntryForm.css'; // Import CSS for custom styling
 
 const FoodEntryForm = () => {
-  const [open, setOpen] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
   const { user } = useAuthenticator((context) => [context.user]);
   const [foodEntries, setFoodEntries] = useState([]);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      navigate('/');
-    } catch (error) {
-      console.log('Error signing out: ', error);
-    }
-  };
 
   const addFoodEntry = async (values) => {
     try {
@@ -55,10 +25,12 @@ const FoodEntryForm = () => {
           userName: user?.username || 'Anonymous',
           foodItem: values.foodItem,
           calories: values.calories,
+          timestamp: new Date().toISOString(), // Add timestamp here
         }),
       });
       if (response.ok) {
-        setFoodEntries([...foodEntries, { id: `food:${Date.now()}`, foodItem: values.foodItem, calories: values.calories }]);
+        const newEntry = await response.json();
+        setFoodEntries([...foodEntries, newEntry]); // Update state immediately
       } else {
         console.error('Failed to submit food entry');
       }
@@ -73,7 +45,7 @@ const FoodEntryForm = () => {
         method: 'DELETE',
       });
       if (response.ok) {
-        setFoodEntries(foodEntries.filter(entry => entry.id !== id));
+        setFoodEntries(foodEntries.filter(entry => entry.id !== id)); // Update state immediately
       } else {
         console.error('Failed to delete food entry');
       }
@@ -114,46 +86,8 @@ const FoodEntryForm = () => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Drawer
-        variant="permanent"
-        anchor="left"
-        sx={{
-          width: 240,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: 240,
-            boxSizing: 'border-box',
-          },
-        }}
-      >
-        <Box sx={{ overflow: 'auto' }}>
-          <Typography variant="h5" sx={{ p: 2 }}>
-            FitGuard
-          </Typography>
-          <List>
-            <ListItem button onClick={handleClick}>
-              <ListItemIcon><MenuIcon /></ListItemIcon>
-              <ListItemText primary="Main Menu" />
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {services.map((service, index) => (
-                  <ListItem button key={index} component={Link} to={service.link} selected={location.pathname === service.link}>
-                    <ListItemIcon>{service.icon}</ListItemIcon>
-                    <ListItemText primary={service.name} />
-                  </ListItem>
-                ))}
-                <ListItem button onClick={handleSignOut}>
-                  <ListItemIcon><SettingsIcon /></ListItemIcon>
-                  <ListItemText primary="Sign Out" />
-                </ListItem>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Navbar />
+      <Box component="main" sx={{ flexGrow: 1, p: 3, marginLeft: '240px' }}>
         <Paper elevation={3} sx={{ padding: '16px' }}>
           <Typography variant="h6" gutterBottom>
             Add Food Entry

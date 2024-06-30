@@ -31,26 +31,35 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  color: white;
+}
+.stats label,
+.stats input,
+.stats button {
+  color: white;
 }
 
 .stat-item {
   text-align: center;
   cursor: pointer;
+  color: white;
 }
 
 .stat-item input {
   width: 50px;
   text-align: center;
+  color: white;
 }
 
 .stat-value {
   font-size: 18px;
   font-weight: bold;
+  color: white; /* Updated color */
 }
 
 .stat-label {
   font-size: 12px;
-  color: #666;
+  color: white;
 }
 
 .goals, .monthly-progress, .scheduled {
@@ -79,7 +88,7 @@
 
 .goal-target, .schedule-category {
   font-size: 12px;
-  color: #666;
+  color: white;
 }
 
 .goal-progress, .progress-circle {
@@ -100,7 +109,7 @@
 
 .schedule-date {
   font-size: 12px;
-  color: #666;
+  color: white;
 }
 
 .main-content {
@@ -109,13 +118,14 @@
   flex-grow: 1;
   padding: 20px;
   overflow-y: auto;
+  background:#ecf0f1;
 }
 
 .content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background-color: #f9f9f9;
+  background-color: #ecf0f1;
 }
 
 .app-bar {
@@ -168,8 +178,22 @@ button {
 .right-drawer {
   width: 300px;
   flex-shrink: 0;
-  background-color: #f8f9fa;
+  background-color: #2c3e50;
   padding: 20px;
   overflow-y: auto;
   box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+  color: white; /* Add this line to set text color to white */
+}
+
+/* Ensure text within right-drawer is white */
+.right-drawer .profile,
+.right-drawer .stat-item,
+.right-drawer .goal-item,
+.right-drawer .monthly-progress,
+.right-drawer .schedule-item {
+  color: white;
+}
+
+.CircularProgressbar-text {
+  fill: white !important;
 }

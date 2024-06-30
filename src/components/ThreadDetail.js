@@ -1,7 +1,8 @@
+// ThreadDetail.js
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, List, ListItem, ListItemText, Divider, IconButton } from '@mui/material';
 import { ThumbUp, ThumbDown, Reply } from '@mui/icons-material';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import Navbar from './Navbar';
 import './ThreadDetail.css';
@@ -13,6 +14,8 @@ const ThreadDetail = () => {
   const [replyTo, setReplyTo] = useState(null);
   const [replyInputs, setReplyInputs] = useState({});
   const { user } = useAuthenticator((context) => [context.user]);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchThread = async () => {
@@ -29,7 +32,7 @@ const ThreadDetail = () => {
   }, [id]);
 
   const handlePostReply = async (parentId) => {
-    const replyMessage = replyInputs[parentId] || '';
+    const replyMessage = parentId ? replyInputs[parentId] : newReply;
 
     if (replyMessage.trim() === '') return;
 
@@ -70,7 +73,7 @@ const ThreadDetail = () => {
         setThread({ ...thread, replies: updatedReplies });
         setNewReply('');
         setReplyTo(null);
-        setReplyInputs({});
+        setReplyInputs({ ...replyInputs, [parentId]: '' });
       } else {
         const errorText = await response.text();
         console.error('Failed to submit reply:', errorText);
@@ -125,6 +128,29 @@ const ThreadDetail = () => {
       }
     } catch (error) {
       console.error('Error disliking reply:', error);
+    }
+  };
+
+  const handleDeleteThread = async () => {
+    try {
+      const response = await fetch(`https://nodejs-czjr-production.up.railway.app/threads/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName: user?.username || 'Anonymous',
+        }),
+      });
+
+      if (response.ok) {
+        // Redirect to the community forum page
+        navigate('/dashboard/community-forum');
+      } else {
+        console.error('Failed to delete thread');
+      }
+    } catch (error) {
+      console.error('Error deleting thread:', error);
     }
   };
 
@@ -188,10 +214,12 @@ const ThreadDetail = () => {
     ));
   };
 
+  const isThreadDetail = location.pathname.startsWith('/threads/');
+
   return (
     <Box sx={{ display: 'flex' }}>
       <Navbar />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, marginLeft: isThreadDetail ? '240px' : '0' }}>
         {thread && (
           <>
             <Typography className="thread-title" variant="h4" gutterBottom>
@@ -201,6 +229,17 @@ const ThreadDetail = () => {
               {thread.userName}: {thread.message}
             </Typography>
             <Divider sx={{ marginY: '16px' }} />
+            {user?.username === 'admin' && (
+              <Button
+                className="delete-button"
+                variant="contained"
+                color="secondary"
+                onClick={handleDeleteThread}
+                sx={{ marginBottom: '16px' }}
+              >
+                Delete Forum
+              </Button>
+            )}
             <TextField
               className="reply-textarea"
               label="Reply"

@@ -1,0 +1,54 @@
+/* FoodEntryForm.css */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  main {
+    margin-left: 240px; /* Adjust to the width of your Navbar */
+  }
+  
+  .circular-progress-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .circular-progress-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .circular-progress-content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #1976d2;
+  }
+  
+  .circular-progress-content .MuiTypography-caption {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  
+  .circular-progress-content .MuiTypography-h6 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .circular-progress-content .MuiTypography-subtitle1 {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .circular-progress {
+    color: #1976d2;
+  }
+  

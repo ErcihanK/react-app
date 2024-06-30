@@ -1,3 +1,4 @@
+// Dashboard.js
 import React, { useState, useEffect } from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
@@ -20,6 +21,10 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
+    if (!user) {
+      return;
+    }
+    
     const fetchUserData = async () => {
       try {
         const response = await fetch(`https://nodejs-czjr-production.up.railway.app/user/${user.username}`);
@@ -40,7 +45,7 @@ const Dashboard = () => {
     };
 
     fetchUserData();
-  }, [user.username]);
+  }, [user]);
 
   const handleEditClick = () => {
     setEditing(true);
@@ -83,6 +88,10 @@ const Dashboard = () => {
   ];
 
   const monthlyProgress = 80;
+
+  if (!user) {
+    return <div>Loading...</div>; // or any other loading indicator
+  }
 
   return (
     <Box className="dashboard-container">
@@ -206,116 +215,6 @@ const Dashboard = () => {
             {/* Add other routes here */}
           </Routes>
         </Box>
-      </Box>
-      <Box className="right-drawer">
-        <div className="profile">
-          <img src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png' alt="Profile" className="profile-image" />
-          <h2>{user.username}</h2>
-          <p>Sydney, Australia</p>
-        </div>
-
-        <div className="stats">
-          {editing ? (
-            <>
-              <TextField
-                name="weight"
-                label="Weight"
-                value={userData.weight}
-                onChange={handleChange}
-              />
-              <TextField
-                name="height"
-                label="Height"
-                value={userData.height}
-                onChange={handleChange}
-              />
-              <TextField
-                name="age"
-                label="Age"
-                value={userData.age}
-                onChange={handleChange}
-              />
-              <Button onClick={() => handleSaveClick(false)}>Save</Button>
-            </>
-          ) : (
-            <>
-              <div className="stat-item" onClick={handleEditClick}>
-                <span className="stat-value">{userData.weight}</span>
-                <span className="stat-label">Weight</span>
-              </div>
-              <div className="stat-item" onClick={handleEditClick}>
-                <span className="stat-value">{userData.height}</span>
-                <span className="stat-label">Height</span>
-              </div>
-              <div className="stat-item" onClick={handleEditClick}>
-                <span className="stat-value">{userData.age}</span>
-                <span className="stat-label">Age</span>
-              </div>
-            </>
-          )}
-        </div>
-
-        <div className="goals">
-          <h3>Your Goals</h3>
-          {goals.map((goal, index) => (
-            <div className="goal-item" key={index}>
-              <div className="goal-icon">{goal.icon}</div>
-              <div className="goal-info">
-                <span className="goal-name">{goal.name}</span>
-                <span className="goal-target">{goal.target}</span>
-              </div>
-              <div className="goal-progress">
-                <CircularProgressbar
-                  value={goal.percentage}
-                  text={`${goal.percentage}%`}
-                  styles={buildStyles({
-                    pathColor: goal.percentage >= 80 ? '#00B8D9' : goal.percentage >= 60 ? '#FF5630' : '#6554C0',
-                    textColor: '#333',
-                    trailColor: '#E0E0E0',
-                    backgroundColor: '#fff',
-                  })}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="monthly-progress">
-          <h3>Monthly Progress</h3>
-          <div className="progress-circle">
-            <CircularProgressbar
-              value={monthlyProgress}
-              text={`${monthlyProgress}%`}
-              styles={buildStyles({
-                pathColor: '#FF5630',
-                textColor: '#333',
-                trailColor: '#E0E0E0',
-                backgroundColor: '#fff',
-              })}
-            />
-          </div>
-          <p>You have achieved {monthlyProgress}% of your goal this month</p>
-        </div>
-
-        <div className="scheduled">
-          <h3>Scheduled</h3>
-          <div className="schedule-item">
-            <div className="schedule-icon">🧘</div>
-            <div className="schedule-info">
-              <span className="schedule-name">Training - Yoga Class</span>
-              <span className="schedule-category">Fitness</span>
-            </div>
-            <span className="schedule-date">22 Mar</span>
-          </div>
-          <div className="schedule-item">
-            <div className="schedule-icon">🏊</div>
-            <div className="schedule-info">
-              <span className="schedule-name">Training - Swimming</span>
-              <span className="schedule-category">Fitness</span>
-            </div>
-            <span className="schedule-date">22 Mar</span>
-          </div>
-        </div>
       </Box>
     </Box>
   );

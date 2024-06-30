@@ -44,8 +44,7 @@ const Navbar = () => {
     <Drawer
       variant="permanent"
       anchor="left"
-      className="drawer"
-      classes={{ paper: "drawer-paper" }}
+      classes={{ paper: 'drawer-paper' }}
     >
       <div className="drawer-container">
         <Typography variant="h5" className="drawer-title">
@@ -60,7 +59,13 @@ const Navbar = () => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {services.map((service, index) => (
-                <ListItem button key={index} component={Link} to={service.link} className={`drawer-list-item ${location.pathname === service.link ? 'active' : ''}`}>
+                <ListItem
+                  button
+                  key={index}
+                  component={Link}
+                  to={service.link}
+                  className={`drawer-list-item ${location.pathname === service.link ? 'active' : ''}`}
+                >
                   <ListItemIcon>{service.icon}</ListItemIcon>
                   <ListItemText primary={service.name} />
                 </ListItem>
