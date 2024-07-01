@@ -25,7 +25,8 @@ AWS.config.update({
   }),
 });
 
-const cloudwatchlogs = new AWS.CloudWatchLogs();
+const cloudWatchLogs = new AWS.CloudWatchLogs();
+const message = "this is a test";
 
 // Function to log user actions
 const logUserAction = async (action) => {
@@ -34,14 +35,14 @@ const logUserAction = async (action) => {
     logStreamName: 'UserActions', // You can make this dynamic based on the user or session
     logEvents: [
       {
-        message: JSON.stringify(action),
+        message: JSON.stringify(message),
         timestamp: new Date().getTime(),
       },
     ],
   };
 
   try {
-    await cloudwatchlogs.putLogEvents(params).promise();
+    await cloudWatchLogs.putLogEvents(params).promise();
   } catch (err) {
     console.error('Error logging user action: ', err);
   }

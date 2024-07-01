@@ -8,7 +8,6 @@ const Header = () => {
       <div className="top-bar">
         <span className="good-morning">Good Morning</span>
         <div className="right-buttons">
-          <button className="subscribe-button">Subscribe</button>
           <button className="icon-button">🔔</button>
           <button className="icon-button">+</button>
         </div>

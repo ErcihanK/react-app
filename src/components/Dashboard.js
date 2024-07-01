@@ -1,4 +1,3 @@
-// Dashboard.js
 import React, { useState, useEffect } from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
@@ -11,7 +10,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = ({ logAction }) => {
   const { user } = useAuthenticator((context) => [context.user]);
   const [editing, setEditing] = useState(false);
   const [userData, setUserData] = useState({
@@ -95,8 +94,18 @@ const Dashboard = () => {
 
   return (
     <Box className="dashboard-container">
+      <Navbar logAction={logAction} />
+      <Box className="main-content">
+        <Header />
+        <Box className="content">
+          <Routes>
+            <Route path="fitness-programs" element={<FitnessPrograms />} />
+            <Route path="community-forum" element={<CommunityForum />} />
+            {/* Add other routes here */}
+          </Routes>
+        </Box>
+      </Box>
       <Box className="side-nav">
-        <Navbar />
         <div className="profile">
           <img src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png' alt="Profile" className="profile-image" />
           <h2>{user.username}</h2>
@@ -205,16 +214,6 @@ const Dashboard = () => {
             <span className="schedule-date">22 Mar</span>
           </div>
         </div>
-      </Box>
-      <Box className="main-content">
-        <Header />
-        <Box className="content">
-          <Routes>
-            <Route path="fitness-programs" element={<FitnessPrograms />} />
-            <Route path="community-forum" element={<CommunityForum />} />
-            {/* Add other routes here */}
-          </Routes>
-        </Box>
       </Box>
     </Box>
   );

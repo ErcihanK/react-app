@@ -15,10 +15,8 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import './Navbar.css';
 
 const services = [
-  { name: 'Personalized Diet Plans', icon: <RestaurantMenuIcon />, link: '/dashboard/diet-plans' },
   { name: 'Fitness Programs', icon: <FitnessCenterIcon />, link: '/dashboard/fitness-programs' },
   { name: 'Community Forum', icon: <ForumIcon />, link: '/dashboard/community-forum' },
-  { name: 'Progress Tracker', icon: <TimelineIcon />, link: '/dashboard/progress' },
   { name: 'Calorie Tracker', icon: <FastfoodIcon />, link: '/food-entry' }
 ];
 
